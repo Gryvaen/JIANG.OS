@@ -5,14 +5,15 @@ import { windowReducer } from "@/core/window-reducer";
 describe("app registry",()=>{
   it("keeps stable unique app ids",()=>{expect(new Set(APP_REGISTRY.map(a=>a.id)).size).toBe(APP_REGISTRY.length)});
   it("keeps window constraints within default size",()=>{for(const app of APP_REGISTRY){expect(app.windowConstraints.minWidth).toBeLessThanOrEqual(app.defaultSize.width);expect(app.windowConstraints.minHeight).toBeLessThanOrEqual(app.defaultSize.height)}});
-  it("hides owner-only apps from viewers and undefined roles",()=>{expect(appsForRole(undefined).some(a=>a.id==="servers")).toBe(false);expect(appsForRole("viewer").some(a=>a.id==="monitor")).toBe(false)});
-  it("shows owner-only apps to the owner",()=>{expect(appsForRole("owner").some(a=>a.id==="servers")).toBe(true);expect(appsForRole("owner").some(a=>a.id==="monitor")).toBe(true)});
+  it("hides owner-only apps from viewers and undefined roles",()=>{expect(appsForRole(undefined).some(a=>a.id==="servers")).toBe(false);expect(appsForRole("viewer").some(a=>a.id==="monitor")).toBe(false);expect(appsForRole(undefined).some(a=>a.id==="vault")).toBe(false);expect(appsForRole("viewer").some(a=>a.id==="vault")).toBe(false)});
+  it("shows owner-only apps to the owner",()=>{expect(appsForRole("owner").some(a=>a.id==="servers")).toBe(true);expect(appsForRole("owner").some(a=>a.id==="monitor")).toBe(true);expect(appsForRole("owner").some(a=>a.id==="vault")).toBe(true)});
   it("keeps public apps visible regardless of role",()=>{expect(appsForRole(undefined).some(a=>a.id==="projects")).toBe(true)});
-  it("gates individual owner-only apps via isAppAllowedForRole",()=>{expect(isAppAllowedForRole("servers",undefined)).toBe(false);expect(isAppAllowedForRole("servers","viewer")).toBe(false);expect(isAppAllowedForRole("servers","owner")).toBe(true);expect(isAppAllowedForRole("projects",undefined)).toBe(true)});
+  it("gates individual owner-only apps via isAppAllowedForRole",()=>{expect(isAppAllowedForRole("servers",undefined)).toBe(false);expect(isAppAllowedForRole("servers","viewer")).toBe(false);expect(isAppAllowedForRole("servers","owner")).toBe(true);expect(isAppAllowedForRole("projects",undefined)).toBe(true);expect(isAppAllowedForRole("vault","owner")).toBe(true);expect(isAppAllowedForRole("vault","viewer")).toBe(false)});
+  it("never marks the vault app as search-indexable",()=>{expect(APP_REGISTRY.find(a=>a.id==="vault")?.searchIndexable).toBe(false)});
 });
 describe("command bus",()=>{
   it("opens registered apps",()=>{const openApp=vi.fn();expect(executeCommand("open projects",{openApp,setTheme:vi.fn()}).ok).toBe(true);expect(openApp).toHaveBeenCalledWith("projects")});
-  it("rejects unknown apps",()=>{expect(executeCommand("open vault",{openApp:vi.fn(),setTheme:vi.fn()}).ok).toBe(false)});
+  it("rejects unknown apps",()=>{expect(executeCommand("open nonexistent",{openApp:vi.fn(),setTheme:vi.fn()}).ok).toBe(false)});
   it("has no duplicate command ids",()=>{expect(new Set(commands.map(c=>c.id)).size).toBe(commands.length)});
   it("dispatches contributed commands like yt through the default branch",()=>{const result=executeCommand("yt cats",{openApp:vi.fn(),setTheme:vi.fn()});expect(result.ok).toBe(true);expect(result.openUrl).toBe("https://www.youtube.com/results?search_query=cats")});
   it("still rejects truly unknown commands",()=>{expect(executeCommand("bogus",{openApp:vi.fn(),setTheme:vi.fn()}).ok).toBe(false)});

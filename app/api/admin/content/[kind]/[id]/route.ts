@@ -1,13 +1,12 @@
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
-import { auth } from "@/auth";
+import { requireOwner } from "@/domains/auth/service";
 import { getDb } from "@/infrastructure/db/client";
 import { notes, projects, quickLinks } from "@/infrastructure/db/schema";
 import { noteUpdate, projectUpdate, quickLinkUpdate } from "../../schemas";
-async function owner() { return (await auth())?.user as { role?: string } | undefined }
 function definedEntries<T extends object>(data: T) { return Object.fromEntries(Object.entries(data).filter(([, v]) => v !== undefined)) }
 export async function PATCH(request: Request, { params }: { params: Promise<{ kind: string; id: string }> }) {
-  if ((await owner())?.role !== "owner") return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!(await requireOwner())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const { kind, id } = await params;
   const body = await request.json().catch(() => null);
   if (kind === "projects") {
@@ -40,7 +39,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ ki
   return NextResponse.json({ error: "Unknown content type" }, { status: 404 });
 }
 export async function DELETE(_: Request, { params }: { params: Promise<{ kind: string; id: string }> }) {
-  if ((await owner())?.role !== "owner") return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!(await requireOwner())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const { kind, id } = await params;
   const db = getDb();
   if (kind === "projects") await db.delete(projects).where(eq(projects.id, id));

@@ -6,6 +6,6 @@ describe("url state",()=>{
   it("builds a pretty path for a note with an item payload",()=>{expect(buildAppUrl("notes",{item:"my-note"})).toBe("/notes/my-note")});
   it("parses a note path",()=>{expect(parseAppUrl("/notes/my-note","")).toEqual({appId:"notes",item:"my-note"})});
   it("parses an app+item query string",()=>{expect(parseAppUrl("/","?app=projects&item=x")).toEqual({appId:"projects",item:"x"})});
-  it("rejects an unknown app id",()=>{expect(parseAppUrl("/","?app=vault")).toBeNull()});
+  it("rejects an unknown app id",()=>{expect(parseAppUrl("/","?app=nonexistent")).toBeNull()});
   it("returns null when there is nothing to parse",()=>{expect(parseAppUrl("/","")).toBeNull()});
 });

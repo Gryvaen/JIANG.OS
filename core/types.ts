@@ -1,4 +1,4 @@
-export type AppId = "projects" | "github" | "about" | "notes" | "files" | "terminal" | "settings" | "web" | "tools" | "servers" | "monitor";
+export type AppId = "projects" | "github" | "about" | "notes" | "files" | "terminal" | "settings" | "web" | "tools" | "servers" | "monitor" | "vault";
 export type Role = "owner" | "viewer";
 export type AppCategory = "SYSTEM" | "PERSONAL";
 export interface AppWindowConstraints { minWidth: number; minHeight: number; maxWidth?: number; maxHeight?: number }

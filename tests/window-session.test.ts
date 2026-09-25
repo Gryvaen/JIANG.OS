@@ -16,7 +16,7 @@ describe("window session", () => {
     expect(restoreWindows("{not json")).toEqual([]);
   });
   it("drops entries with an unknown appId", () => {
-    const raw = JSON.stringify([{ ...sample, appId: "vault" }]);
+    const raw = JSON.stringify([{ ...sample, appId: "nonexistent" }]);
     expect(restoreWindows(raw)).toEqual([]);
   });
   it("drops entries missing required fields", () => {
