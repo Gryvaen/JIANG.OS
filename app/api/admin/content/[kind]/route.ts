@@ -1,0 +1,6 @@
+import { NextResponse } from "next/server";
+import { auth } from "@/auth";
+import { getDb } from "@/infrastructure/db/client";
+import { notes, projects } from "@/infrastructure/db/schema";
+import { noteInput, projectInput } from "../schemas";
+export async function POST(request:Request,{params}:{params:Promise<{kind:string}>}){const session=await auth();if((session?.user as {role?:string}|undefined)?.role!=="owner")return NextResponse.json({error:"Unauthorized"},{status:401});try{const {kind}=await params;const body=await request.json();const db=getDb();if(kind==="projects"){const data=projectInput.parse(body);const [created]=await db.insert(projects).values({...data,status:0,stack:[],links:[]}).returning();return NextResponse.json(created,{status:201})}if(kind==="notes"){const data=noteInput.parse(body);const [created]=await db.insert(notes).values({...data,publishedAt:data.published?new Date():null}).returning();return NextResponse.json(created,{status:201})}return NextResponse.json({error:"Unknown content type"},{status:404})}catch(error){return NextResponse.json({error:error instanceof Error?error.message:"Invalid request"},{status:400})}}
