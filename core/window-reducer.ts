@@ -3,7 +3,7 @@ import type { AppId, WindowState } from "./types";
 export const TOPBAR_HEIGHT = 44;
 type Viewport = { width: number; height: number };
 export type WindowAction =
-  | { type: "OPEN"; appId: AppId; viewport: Viewport }
+  | { type: "OPEN"; appId: AppId; viewport: Viewport; payload?: { item?: string } }
   | { type: "FOCUS"; id: string }
   | { type: "MOVE"; id: string; x: number; y: number; viewport: Viewport }
   | { type: "RESIZE"; id: string; width: number; height: number; viewport: Viewport }
@@ -29,12 +29,12 @@ const clampSize = (appId: AppId, x: number, y: number, width: number, height: nu
 export function windowReducer(state: WindowState[], action: WindowAction): WindowState[] {
   if (action.type === "OPEN") {
     const existing = state.find(w => w.appId === action.appId);
-    if (existing) return state.map(w => w.instanceId === existing.instanceId ? { ...w, status: "open", zIndex: top(state) } : w);
+    if (existing) return state.map(w => w.instanceId === existing.instanceId ? { ...w, status: "open", zIndex: top(state), payload: action.payload ?? existing.payload } : w);
     const app = getApp(action.appId);
     const width = Math.min(app.defaultSize.width, action.viewport.width - 32);
     const height = Math.min(app.defaultSize.height, action.viewport.height - 120);
     const offset = (state.length % 5) * 28;
-    return [...state, { instanceId: `${action.appId}-${Date.now()}`, appId: action.appId, x: Math.max(16, (action.viewport.width - width) / 2 + offset), y: Math.max(TOPBAR_HEIGHT + 10, (action.viewport.height - height) / 2 + offset / 2), width, height, status: "open", zIndex: top(state) }];
+    return [...state, { instanceId: `${action.appId}-${Date.now()}`, appId: action.appId, x: Math.max(16, (action.viewport.width - width) / 2 + offset), y: Math.max(TOPBAR_HEIGHT + 10, (action.viewport.height - height) / 2 + offset / 2), width, height, status: "open", zIndex: top(state), payload: action.payload }];
   }
   if (action.type === "CLOSE") return state.filter(w => w.instanceId !== action.id);
   if (action.type === "CYCLE") {

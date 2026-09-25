@@ -23,4 +23,13 @@ describe("window session", () => {
     const raw = JSON.stringify([{ instanceId: "x", appId: "projects" }]);
     expect(restoreWindows(raw)).toEqual([]);
   });
+  it("round-trips a window carrying a payload", () => {
+    const withPayload: WindowState = { ...sample, payload: { item: "riscv-cpu" } };
+    const raw = serializeWindows([withPayload]);
+    expect(restoreWindows(raw)).toEqual([withPayload]);
+  });
+  it("round-trips a window without a payload for backward compatibility", () => {
+    const raw = serializeWindows([sample]);
+    expect(restoreWindows(raw)).toEqual([sample]);
+  });
 });

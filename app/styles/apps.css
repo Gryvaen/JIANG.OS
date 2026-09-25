@@ -506,3 +506,151 @@
   font: .65rem ui-monospace, monospace;
   color: var(--muted);
 }
+
+.empty-hint {
+  color: var(--muted);
+  margin-top: 20px;
+}
+
+.quick-link-group {
+  margin-top: 28px;
+}
+
+.quick-link-group h3 {
+  font: 600 .68rem ui-monospace, monospace;
+  letter-spacing: .1em;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.quick-link-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.quick-link-grid a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, .025);
+  padding: 14px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.quick-link-grid a:hover {
+  border-color: var(--accent);
+}
+
+.quick-link-grid svg {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.tools-app {
+  display: grid;
+  grid-template-columns: clamp(140px, 20vw, 200px) 1fr;
+  min-height: 100%;
+}
+
+.tools-app aside {
+  padding: 20px 12px;
+  border-right: 1px solid var(--line);
+  background: rgba(255, 255, 255, .02);
+}
+
+.tools-app aside button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  padding: 9px;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.tools-app aside button:hover {
+  background: rgba(255, 255, 255, .06);
+}
+
+.tools-app aside button.active {
+  background: rgba(255, 255, 255, .07);
+  color: var(--text);
+}
+
+.tools-body {
+  padding: 26px;
+  overflow: auto;
+}
+
+.tool-panel {
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tool-panel h2 {
+  font-size: 1.3rem;
+  margin: 0 0 6px;
+}
+
+.tool-panel input, .tool-panel textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, .02);
+  color: var(--text);
+  padding: 10px 12px;
+  font: .85rem ui-monospace, monospace;
+}
+
+.tool-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font: .65rem ui-monospace, monospace;
+  color: var(--muted);
+}
+
+.tool-panel button {
+  align-self: flex-start;
+  border: 1px solid var(--line);
+  background: none;
+  color: var(--text);
+  padding: 9px 14px;
+  font: .7rem ui-monospace, monospace;
+}
+
+.tool-row {
+  display: flex;
+  gap: 10px;
+}
+
+.tool-result {
+  font: .85rem ui-monospace, monospace;
+  color: var(--accent);
+  word-break: break-all;
+}
+
+.tool-output {
+  border: 1px solid var(--line);
+  padding: 12px;
+  font: .78rem ui-monospace, monospace;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.tool-error {
+  color: var(--danger);
+  font: .8rem ui-monospace, monospace;
+}
+
+.tool-qr {
+  border: 1px solid var(--line);
+  width: fit-content;
+}

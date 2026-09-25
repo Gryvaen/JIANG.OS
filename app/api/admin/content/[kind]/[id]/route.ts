@@ -2,8 +2,8 @@ import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { getDb } from "@/infrastructure/db/client";
-import { notes, projects } from "@/infrastructure/db/schema";
-import { noteUpdate, projectUpdate } from "../../schemas";
+import { notes, projects, quickLinks } from "@/infrastructure/db/schema";
+import { noteUpdate, projectUpdate, quickLinkUpdate } from "../../schemas";
 async function owner() { return (await auth())?.user as { role?: string } | undefined }
 function definedEntries<T extends object>(data: T) { return Object.fromEntries(Object.entries(data).filter(([, v]) => v !== undefined)) }
 export async function PATCH(request: Request, { params }: { params: Promise<{ kind: string; id: string }> }) {
@@ -28,6 +28,15 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ ki
     if (!updated) return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json(updated);
   }
+  if (kind === "quicklinks") {
+    const parsed = quickLinkUpdate.safeParse(body);
+    if (!parsed.success) return NextResponse.json({ error: "Invalid request", fieldErrors: parsed.error.flatten().fieldErrors }, { status: 400 });
+    const data = definedEntries(parsed.data);
+    const db = getDb();
+    const [updated] = await db.update(quickLinks).set({ ...data, updatedAt: new Date() }).where(eq(quickLinks.id, id)).returning();
+    if (!updated) return NextResponse.json({ error: "Not found" }, { status: 404 });
+    return NextResponse.json(updated);
+  }
   return NextResponse.json({ error: "Unknown content type" }, { status: 404 });
 }
 export async function DELETE(_: Request, { params }: { params: Promise<{ kind: string; id: string }> }) {
@@ -36,6 +45,7 @@ export async function DELETE(_: Request, { params }: { params: Promise<{ kind: s
   const db = getDb();
   if (kind === "projects") await db.delete(projects).where(eq(projects.id, id));
   else if (kind === "notes") await db.delete(notes).where(eq(notes.id, id));
+  else if (kind === "quicklinks") await db.delete(quickLinks).where(eq(quickLinks.id, id));
   else return NextResponse.json({ error: "Unknown content type" }, { status: 404 });
   return NextResponse.json({ ok: true });
 }
