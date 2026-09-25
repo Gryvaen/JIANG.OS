@@ -1,0 +1,5 @@
+"use client";
+import { FileText, Folder } from "lucide-react";
+import type { AppId } from "@/core/types";
+import type { PublicContent } from "@/domains/content/types";
+export function FilesApp({content,openApp}:{content:PublicContent;openApp:(id:AppId)=>void}){return <div className="files"><aside><b>FAVORITES</b><button onClick={()=>openApp("projects")}><Folder/> projects</button><button onClick={()=>openApp("notes")}><Folder/> notes</button><button onClick={()=>openApp("about")}><Folder/> home</button></aside><section><header><span>/</span> home <span>/</span> jiang</header><div className="file-grid"><button onClick={()=>openApp("projects")}><Folder/><b>projects</b><span>{content.projects.length} items</span></button><button onClick={()=>openApp("notes")}><Folder/><b>notes</b><span>{content.notes.length} items</span></button><button onClick={()=>openApp("about")}><FileText/><b>about.md</b><span>Markdown</span></button><button onClick={()=>openApp("about")}><FileText/><b>philosophy.md</b><span>Markdown</span></button></div></section></div>}

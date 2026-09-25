@@ -1,0 +1,5 @@
+"use client";
+import { useRef, useState } from "react";
+import { executeCommand } from "@/core/commands";
+import type { AppId } from "@/core/types";
+export function TerminalApp({openApp}:{openApp:(id:AppId)=>void}){const [lines,setLines]=useState<{input?:string;output?:string;error?:boolean}[]>([{output:"JIANG.OS terminal · type ‘help’ to begin"}]);const [value,setValue]=useState("");const input=useRef<HTMLInputElement>(null);const submit=(e:React.FormEvent)=>{e.preventDefault();const result=executeCommand(value,{openApp,setTheme:()=>{}});if(result.clear)setLines([]);else setLines(v=>[...v,{input:value,output:result.output,error:!result.ok}]);setValue("")};return <div className="terminal" onClick={()=>input.current?.focus()}>{lines.map((l,i)=><div key={i}>{l.input!==undefined&&<p><b>jiang@web</b>:<span>~</span>$ {l.input}</p>}{l.output&&<pre className={l.error?"error":""}>{l.output}</pre>}</div>)}<form onSubmit={submit}><b>jiang@web</b>:<span>~</span>$ <input ref={input} autoFocus value={value} onChange={e=>setValue(e.target.value)} aria-label="Terminal input" autoComplete="off"/></form></div>}
