@@ -1,0 +1,306 @@
+.admin-login {
+  min-height: 100vh;
+  padding: 10vh 10vw;
+  background: radial-gradient(circle at 80% 20%, rgba(232, 255, 90, .08), transparent 30%), var(--bg);
+}
+
+.admin-brand {
+  width: 46px;
+  height: 46px;
+  background: var(--accent);
+  color: #101214;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 1.5rem;
+  border-radius: 8px;
+}
+
+.admin-login > span {
+  display: block;
+  color: var(--accent);
+  font: .7rem ui-monospace, monospace;
+  letter-spacing: .14em;
+  margin-top: 60px;
+}
+
+.admin-login h1 {
+  font-size: clamp(3rem, 8vw, 7rem);
+  letter-spacing: -.08em;
+  line-height: .9;
+  margin: 18px 0;
+}
+
+.admin-login p {
+  color: var(--muted);
+}
+
+.admin-login button {
+  margin-top: 30px;
+  padding: 14px 20px;
+  border: 0;
+  background: var(--accent);
+  color: #111;
+  font-weight: 700;
+}
+
+.admin {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+  background: #0d0f11;
+  overflow: auto;
+}
+
+.admin > aside {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  border-right: 1px solid var(--line);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin > aside > b {
+  margin-top: 16px;
+}
+
+.admin > aside > small {
+  color: var(--muted);
+}
+
+.admin > aside nav {
+  display: flex;
+  flex-direction: column;
+  margin-top: 55px;
+}
+
+.admin > aside nav a {
+  padding: 10px 0;
+  color: var(--muted);
+}
+
+.admin > aside nav a.active {
+  color: var(--accent);
+}
+
+.admin > aside form {
+  margin-top: auto;
+}
+
+.admin > aside button {
+  border: 0;
+  background: none;
+  color: var(--muted);
+}
+
+.admin > section {
+  padding: 45px 5vw;
+}
+
+.admin > section > header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.admin > section > header span {
+  font: .65rem ui-monospace, monospace;
+  color: var(--accent);
+}
+
+.admin > section > header h1 {
+  font-size: 2.8rem;
+  letter-spacing: -.05em;
+  margin: 8px 0;
+}
+
+.admin > section > header a {
+  font: .7rem ui-monospace, monospace;
+  text-decoration: none;
+}
+
+.admin-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--line);
+  margin: 35px 0;
+}
+
+.admin-metrics article {
+  padding: 24px;
+  border-right: 1px solid var(--line);
+}
+
+.admin-metrics span, .admin-metrics b {
+  display: block;
+}
+
+.admin-metrics span {
+  font: .65rem ui-monospace, monospace;
+  color: var(--muted);
+}
+
+.admin-metrics b {
+  font-size: 2.5rem;
+  margin-top: 15px;
+}
+
+.status-ok {
+  color: var(--accent);
+}
+
+.admin-panel {
+  border: 1px solid var(--line);
+}
+
+.admin-panel > header {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.admin-panel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.admin-panel > header button {
+  background: var(--accent);
+  color: #111;
+  border: 0;
+  padding: 8px 12px;
+  font-size: .7rem;
+}
+
+.admin-panel > header > div {
+  display: flex;
+  gap: 6px;
+}
+
+.admin-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 100px 100px 50px 50px 50px;
+  gap: 10px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line);
+  align-items: center;
+}
+
+.admin-row span, .admin-row small, .admin-row em {
+  font: .62rem ui-monospace, monospace;
+  color: var(--muted);
+  font-style: normal;
+}
+
+.admin-row em {
+  color: var(--accent);
+}
+
+.admin-row button {
+  border: 0;
+  background: none;
+  font-size: .65rem;
+}
+
+.admin-message {
+  margin: 0;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--line);
+  color: var(--accent);
+  font-size: .75rem;
+}
+
+.admin-editor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 18px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, .025);
+}
+
+.admin-editor input, .admin-editor textarea {
+  border: 1px solid var(--line);
+  background: #111417;
+  color: var(--text);
+  padding: 11px;
+  outline: 0;
+}
+
+.admin-editor textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.admin-editor > div {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.admin-editor button {
+  border: 1px solid var(--line);
+  background: none;
+  padding: 8px 12px;
+}
+
+.admin-editor button[type=submit] {
+  background: var(--accent);
+  color: #111;
+  border-color: var(--accent);
+}
+
+.admin-editor.two-col {
+  grid-template-columns: 1fr 1fr;
+}
+
+.admin-editor .field-error {
+  grid-column: 1 / -1;
+  margin: -4px 0 0;
+  color: var(--danger);
+  font-size: .68rem;
+  font: .68rem ui-monospace, monospace;
+}
+
+.admin-editor .markdown-preview {
+  border: 1px solid var(--line);
+  background: #111417;
+  padding: 11px;
+  overflow: auto;
+  max-height: 260px;
+}
+
+.admin-empty {
+  padding: 60px 24px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.admin-retry {
+  border: 1px solid var(--danger);
+  background: none;
+  color: var(--danger);
+  padding: 6px 10px;
+  font-size: .68rem;
+  margin-left: 10px;
+}
+
+.admin-drag-handle {
+  cursor: grab;
+  color: var(--muted);
+}
+
+.admin-row.draggable {
+  grid-template-columns: 24px 80px 1fr 100px 100px 50px 50px 50px;
+}
+
+.admin-row.drag-over {
+  background: rgba(232, 255, 90, .06);
+}
+
+.admin-row.dragging {
+  cursor: grabbing;
+}

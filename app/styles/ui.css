@@ -1,0 +1,122 @@
+/* Token-driven styles for components/ui/* primitives (Button, Panel, Dialog,
+   Input, List, EmptyState, LoadingState). Intentionally thin — no new visual
+   language beyond the existing token set, so a later visual pass can restyle
+   these without touching component structure. */
+
+.ui-button {
+  border: 1px solid var(--line);
+  background: none;
+  color: var(--text);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-sm);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-standard);
+}
+
+.ui-button:hover {
+  background: rgba(255, 255, 255, .08);
+}
+
+.ui-button.primary {
+  background: var(--accent);
+  color: #111;
+  border-color: var(--accent);
+}
+
+.ui-button.danger {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.ui-button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.ui-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.ui-panel > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.ui-dialog {
+  width: min(480px, 90vw);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--elevated);
+  box-shadow: var(--shadow);
+  padding: var(--space-5);
+}
+
+.ui-dialog h2 {
+  margin: 0 0 var(--space-2);
+}
+
+.ui-dialog .ui-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.ui-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+}
+
+.ui-field label {
+  font: var(--font-xs) ui-monospace, monospace;
+  color: var(--muted);
+  letter-spacing: .06em;
+}
+
+.ui-field input, .ui-field textarea {
+  border: 1px solid var(--line);
+  background: #111417;
+  color: var(--text);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  outline: 0;
+}
+
+.ui-field.has-error input, .ui-field.has-error textarea {
+  border-color: var(--danger);
+}
+
+.ui-field-error {
+  color: var(--danger);
+  font: var(--font-xs) ui-monospace, monospace;
+}
+
+.ui-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-list > * + * {
+  border-top: 1px solid var(--line);
+}
+
+.ui-empty-state {
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+  color: var(--muted);
+}
+
+.ui-loading-state {
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+  color: var(--muted);
+  font: var(--font-sm) ui-monospace, monospace;
+}

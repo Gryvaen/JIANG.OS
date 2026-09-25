@@ -1,0 +1,66 @@
+:root {
+  /* Color */
+  --bg: #0d0f11;
+  --surface: #15181b;
+  --elevated: #1c2024;
+  --line: rgba(255, 255, 255, .1);
+  --text: #f2f3f4;
+  --muted: #899097;
+  --accent: #e8ff5a;
+  --danger: #ff6470;
+  --shadow: 0 28px 90px rgba(0, 0, 0, .48);
+
+  /* Type */
+  font-family: Inter, "SF Pro Display", ui-sans-serif, system-ui, sans-serif;
+  color-scheme: dark;
+  --font-xs: .65rem;
+  --font-sm: .75rem;
+  --font-md: .875rem;
+  --font-lg: 1.15rem;
+  --font-xl: 2rem;
+  --font-2xl: 3rem;
+
+  /* Space */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 28px;
+  --space-7: 36px;
+  --space-8: 48px;
+
+  /* Radius */
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-round: 50%;
+
+  /* Motion */
+  --duration-fast: .16s;
+  --duration-base: .2s;
+  --duration-slow: .7s;
+  --ease-standard: ease-out;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+}
+
+button, input {
+  font: inherit;
+}
+
+button, a {
+  color: inherit;
+}
