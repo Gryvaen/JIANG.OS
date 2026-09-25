@@ -44,4 +44,19 @@ describe("runSearch", () => {
     const results = runSearch("", emptyData);
     expect(results.filter(r => r.type === "app").length).toBeGreaterThan(0);
   });
+  it("hides owner-only apps and their commands when no role is provided", () => {
+    const results = runSearch("servers", emptyData);
+    expect(results.some(r => r.type === "app" && r.title === "Servers")).toBe(false);
+    expect(results.some(r => r.type === "command" && r.title === "Servers status")).toBe(false);
+  });
+  it("hides owner-only apps and their commands for a viewer role", () => {
+    const results = runSearch("servers", { ...emptyData, role: "viewer" });
+    expect(results.some(r => r.type === "app" && r.title === "Servers")).toBe(false);
+    expect(results.some(r => r.type === "command" && r.title === "Servers status")).toBe(false);
+  });
+  it("shows owner-only apps and their commands for the owner role", () => {
+    const results = runSearch("servers", { ...emptyData, role: "owner" });
+    expect(results.some(r => r.type === "app" && r.title === "Servers")).toBe(true);
+    expect(results.some(r => r.type === "command" && r.title === "Servers status")).toBe(true);
+  });
 });

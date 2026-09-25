@@ -497,6 +497,15 @@
   margin-top: 4px;
 }
 
+.setting-row button {
+  border: 1px solid var(--line);
+  background: none;
+  color: var(--text);
+  padding: 8px 14px;
+  font: .68rem ui-monospace, monospace;
+  align-self: center;
+}
+
 .version {
   border-top: 1px solid var(--line);
   margin-top: 20px;
@@ -653,4 +662,35 @@
 .tool-qr {
   border: 1px solid var(--line);
   width: fit-content;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  background: currentColor;
+}
+
+.status-online { color: var(--status-online); }
+.status-degraded { color: var(--status-degraded); }
+.status-offline { color: var(--status-offline); }
+.status-unknown { color: var(--status-unknown); }
+
+.server-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 24px;
+  font: .75rem ui-monospace, monospace;
+}
+
+.server-status small {
+  color: var(--muted);
+}
+
+.server-chart {
+  margin: 24px 0;
+  border: 1px solid var(--line);
+  padding: 14px;
 }

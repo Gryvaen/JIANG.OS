@@ -22,5 +22,13 @@ export const commandContributions: Partial<Record<AppDefinition["id"], (app: App
       // Google Translate pre-filled instead of calling a translation API.
       return {ok:true,output:"Translator isn't connected to a server provider yet — opening Google Translate instead.",openUrl:`https://translate.google.com/?text=${encodeURIComponent(text)}`};
     }
+  }],
+  servers:(app)=>[{
+    id:"servers.status",label:"Servers status",keywords:["servers","status"],appId:app.id,
+    execute:(ctx,args):CommandResult=>{
+      ctx.openApp(app.id);
+      const query=args.join(" ");
+      return {ok:true,output:query?`Opening Servers — look for "${query}"…`:"Opening Servers status…"};
+    }
   }]
 };

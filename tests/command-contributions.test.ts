@@ -26,4 +26,13 @@ describe("commandContributions", () => {
     expect(result.ok).toBe(true);
     expect(result.openUrl).toContain("translate.google.com");
   });
+  it("servers.status opens the Servers app and echoes the query", () => {
+    const cmds = commandContributions.servers!(getApp("servers"));
+    const status = cmds[0];
+    const openApp = vi.fn();
+    expect(status.execute({ openApp, setTheme: vi.fn() }, []).output).toBe("Opening Servers status…");
+    expect(openApp).toHaveBeenCalledWith("servers");
+    const result = status.execute({ openApp, setTheme: vi.fn() }, ["web-01"]);
+    expect(result.output).toBe('Opening Servers — look for "web-01"…');
+  });
 });

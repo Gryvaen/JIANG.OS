@@ -9,6 +9,10 @@
   --accent: #e8ff5a;
   --danger: #ff6470;
   --shadow: 0 28px 90px rgba(0, 0, 0, .48);
+  --status-online: #5fe38a;
+  --status-degraded: #f0c94f;
+  --status-offline: #ff6470;
+  --status-unknown: #899097;
 
   /* Type */
   font-family: Inter, "SF Pro Display", ui-sans-serif, system-ui, sans-serif;

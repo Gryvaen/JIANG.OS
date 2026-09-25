@@ -390,3 +390,89 @@ kbd {
   color: var(--danger);
   border-color: var(--danger);
 }
+
+.notif-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  border-radius: 8px;
+  background: var(--danger);
+  color: #fff;
+  font: 700 .6rem ui-monospace, monospace;
+  display: grid;
+  place-items: center;
+}
+
+.notification-center {
+  width: min(420px, calc(100vw - 32px));
+  max-height: 74vh;
+  overflow: auto;
+  background: rgba(20, 23, 26, .97);
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+.notification-center > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.notification-center > header div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notification-center > header button {
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: .65rem ui-monospace, monospace;
+}
+
+.notification-list button {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  padding: 14px 4px;
+  color: var(--muted);
+}
+
+.notification-list button.unread {
+  color: var(--text);
+}
+
+.notification-list button.unread b {
+  color: var(--accent);
+}
+
+.notification-list button:hover {
+  background: rgba(255, 255, 255, .04);
+}
+
+.notification-list svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--danger);
+}
+
+.notification-list b, .notification-list small {
+  display: block;
+}
+
+.notification-list small {
+  color: var(--muted);
+  margin-top: 3px;
+}

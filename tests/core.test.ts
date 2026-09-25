@@ -1,10 +1,14 @@
 import { describe,expect,it,vi } from "vitest";
-import { APP_REGISTRY } from "@/core/app-registry";
+import { APP_REGISTRY, appsForRole, isAppAllowedForRole } from "@/core/app-registry";
 import { commands, executeCommand } from "@/core/commands";
 import { windowReducer } from "@/core/window-reducer";
 describe("app registry",()=>{
   it("keeps stable unique app ids",()=>{expect(new Set(APP_REGISTRY.map(a=>a.id)).size).toBe(APP_REGISTRY.length)});
   it("keeps window constraints within default size",()=>{for(const app of APP_REGISTRY){expect(app.windowConstraints.minWidth).toBeLessThanOrEqual(app.defaultSize.width);expect(app.windowConstraints.minHeight).toBeLessThanOrEqual(app.defaultSize.height)}});
+  it("hides owner-only apps from viewers and undefined roles",()=>{expect(appsForRole(undefined).some(a=>a.id==="servers")).toBe(false);expect(appsForRole("viewer").some(a=>a.id==="monitor")).toBe(false)});
+  it("shows owner-only apps to the owner",()=>{expect(appsForRole("owner").some(a=>a.id==="servers")).toBe(true);expect(appsForRole("owner").some(a=>a.id==="monitor")).toBe(true)});
+  it("keeps public apps visible regardless of role",()=>{expect(appsForRole(undefined).some(a=>a.id==="projects")).toBe(true)});
+  it("gates individual owner-only apps via isAppAllowedForRole",()=>{expect(isAppAllowedForRole("servers",undefined)).toBe(false);expect(isAppAllowedForRole("servers","viewer")).toBe(false);expect(isAppAllowedForRole("servers","owner")).toBe(true);expect(isAppAllowedForRole("projects",undefined)).toBe(true)});
 });
 describe("command bus",()=>{
   it("opens registered apps",()=>{const openApp=vi.fn();expect(executeCommand("open projects",{openApp,setTheme:vi.fn()}).ok).toBe(true);expect(openApp).toHaveBeenCalledWith("projects")});

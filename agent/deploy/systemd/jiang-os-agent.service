@@ -1,0 +1,22 @@
+[Unit]
+Description=JIANG.OS server agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=jiang-os-agent
+Group=jiang-os-agent
+ExecStart=/usr/local/bin/jiang-os-agent -config /etc/jiang-os-agent/config.yaml
+Restart=on-failure
+RestartSec=5
+
+# Sandboxing — the agent only needs to read its config and reach the network.
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+NoNewPrivileges=true
+ReadOnlyPaths=/etc/jiang-os-agent
+
+[Install]
+WantedBy=multi-user.target

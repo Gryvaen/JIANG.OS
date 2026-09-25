@@ -1,4 +1,4 @@
-import type { AppDefinition, AppId } from "./types";
+import type { AppDefinition, AppId, Role } from "./types";
 const DEFAULT_WINDOW_CONSTRAINTS = { minWidth: 420, minHeight: 300 };
 export const APP_REGISTRY: AppDefinition[] = [
   {id:"projects",name:"Projects",shortName:"Projects",category:"PERSONAL",description:"Selected work and experiments",icon:"diamond",keywords:["portfolio","work","risc-v"],shells:["desktop","mobile"],defaultSize:{width:760,height:560},singleton:true,windowConstraints:DEFAULT_WINDOW_CONSTRAINTS,access:"public",searchIndexable:true},
@@ -9,7 +9,11 @@ export const APP_REGISTRY: AppDefinition[] = [
   {id:"terminal",name:"Terminal",shortName:"Terminal",category:"SYSTEM",description:"jiangsh command interface",icon:"terminal",keywords:["shell","cli"],shells:["desktop","mobile"],defaultSize:{width:720,height:460},singleton:true,windowConstraints:DEFAULT_WINDOW_CONSTRAINTS,access:"public",searchIndexable:false},
   {id:"settings",name:"Settings",shortName:"Settings",category:"SYSTEM",description:"Appearance and behavior",icon:"settings",keywords:["theme","accent","wallpaper"],shells:["desktop","mobile"],defaultSize:{width:640,height:520},singleton:true,windowConstraints:DEFAULT_WINDOW_CONSTRAINTS,access:"public",searchIndexable:false},
   {id:"web",name:"Quick Web",shortName:"Web",category:"PERSONAL",description:"Bookmarked sites and quick links",icon:"link",keywords:["bookmarks","links","web"],shells:["desktop","mobile"],defaultSize:{width:680,height:520},singleton:true,windowConstraints:DEFAULT_WINDOW_CONSTRAINTS,access:"public",searchIndexable:true},
-  {id:"tools",name:"Tools",shortName:"Tools",category:"SYSTEM",description:"Local utilities — calculator, JSON, UUID and more",icon:"wrench",keywords:["calculator","json","base64","uuid","regex","qr","timestamp"],shells:["desktop","mobile"],defaultSize:{width:760,height:560},singleton:true,windowConstraints:DEFAULT_WINDOW_CONSTRAINTS,access:"public",searchIndexable:true}
+  {id:"tools",name:"Tools",shortName:"Tools",category:"SYSTEM",description:"Local utilities — calculator, JSON, UUID and more",icon:"wrench",keywords:["calculator","json","base64","uuid","regex","qr","timestamp"],shells:["desktop","mobile"],defaultSize:{width:760,height:560},singleton:true,windowConstraints:DEFAULT_WINDOW_CONSTRAINTS,access:"public",searchIndexable:true},
+  {id:"servers",name:"Servers",shortName:"Servers",category:"SYSTEM",description:"Infrastructure nodes, metrics and incidents",icon:"server",keywords:["infra","monitoring","metrics","uptime"],shells:["desktop","mobile"],defaultSize:{width:820,height:600},singleton:true,windowConstraints:DEFAULT_WINDOW_CONSTRAINTS,access:"owner",searchIndexable:true},
+  {id:"monitor",name:"System Monitor",shortName:"Monitor",category:"SYSTEM",description:"Local session and backend health overview",icon:"activity",keywords:["status","health","uptime"],shells:["desktop","mobile"],defaultSize:{width:520,height:440},singleton:true,windowConstraints:DEFAULT_WINDOW_CONSTRAINTS,access:"owner",searchIndexable:true}
 ];
 export const getApp = (id: AppId) => APP_REGISTRY.find(app => app.id === id)!;
 export const isAppId = (value: string): value is AppId => APP_REGISTRY.some(app => app.id === value);
+export const appsForRole = (role: Role | undefined): AppDefinition[] => APP_REGISTRY.filter(app => app.access !== "owner" || role === "owner");
+export const isAppAllowedForRole = (id: AppId, role: Role | undefined): boolean => { const app = getApp(id); return app.access !== "owner" || role === "owner" };

@@ -15,6 +15,13 @@
       "when": 1790329821369,
       "tag": "0001_aromatic_mister_sinister",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790335088888,
+      "tag": "0002_absurd_norman_osborn",
+      "breakpoints": true
     }
   ]
 }

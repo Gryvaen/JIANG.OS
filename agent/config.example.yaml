@@ -1,0 +1,8 @@
+server_url: https://jiang.os/api/agent/v1
+token_id: <non-secret token id, issued by the admin UI>
+token: <raw secret, issued once by the admin UI — chmod 600 this file>
+heartbeat_interval_seconds: 30
+service_checks:
+  - name: nginx
+    type: process
+    target: nginx

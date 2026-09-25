@@ -1,4 +1,5 @@
-export type AppId = "projects" | "github" | "about" | "notes" | "files" | "terminal" | "settings" | "web" | "tools";
+export type AppId = "projects" | "github" | "about" | "notes" | "files" | "terminal" | "settings" | "web" | "tools" | "servers" | "monitor";
+export type Role = "owner" | "viewer";
 export type AppCategory = "SYSTEM" | "PERSONAL";
 export interface AppWindowConstraints { minWidth: number; minHeight: number; maxWidth?: number; maxHeight?: number }
 export interface AppDefinition { id: AppId; name: string; shortName: string; category: AppCategory; description: string; icon: string; keywords: string[]; shells: ("desktop" | "mobile")[]; defaultSize: { width: number; height: number }; singleton: boolean; windowConstraints: AppWindowConstraints; access: "public" | "owner"; routePattern?: string; searchIndexable: boolean }
